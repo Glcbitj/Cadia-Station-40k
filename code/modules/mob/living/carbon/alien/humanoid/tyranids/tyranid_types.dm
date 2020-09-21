@@ -420,14 +420,15 @@ Ravener
 	icon = 'icons/mob/tyranidslarge.dmi'
 	name = "ravener"
 	icon_state = "ravener"
-	maxHealth = 400
-	health = 400
+	maxHealth = 500
+	health = 500
 	layer = 5
 	ventcrawler = 0
 	status_flags = 0
 	luminosity = 3
 	brutearmor = 1
 	var/rending_claws = 0
+	var/speedmod = 1.1
 
 /mob/living/carbon/alien/humanoid/tyranid/ravener/adjustFireLoss(amount)
 	src.adjustToxLoss(-amount*4)
@@ -1568,5 +1569,5 @@ datum/reagent/tyranid/on_mob_life(var/mob/living/carbon/M) //Pretty high damage 
 				H.drop_item()
 				H.Dizzy(5)
 				shake_camera(H, 10, 1)
-				H.reagents.remove_reagent(src.id, 0.05)
+		H.reagents.remove_reagent(src.id, 0.05) //Removed indentation so the chem will still be processed when not on weeds.
 	return
