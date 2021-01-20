@@ -7,7 +7,6 @@ Eldar
 	name = "Aeldra, the Master Cataloger"
 	real_name = "Aeldra, the Master Cataloger"
 	universal_speak = 1
-	gender = "female"
 	maxHealth = 150
 	health = 150
 	status_flags = 0
@@ -53,7 +52,7 @@ Eldar
 	. += ..()
 
 /mob/living/carbon/human/whitelisted/eldar/New()
-	verbs.Add(/mob/living/carbon/human/whitelisted/eldar/verb/lungeat, /mob/living/carbon/human/whitelisted/eldar/verb/stealth)
+	verbs.Add(/mob/living/carbon/human/whitelisted/eldar/verb/blinkto, /mob/living/carbon/human/whitelisted/eldar/verb/stealth)
 	..()
 	var/obj/item/device/radio/headset/R = new /obj/item/device/radio/headset/headset_cent
 	R.set_frequency(1487)
@@ -99,12 +98,12 @@ Eldar
 				rename_self("[name]") 
 		
 
-//lunge
+//blink
 
-/mob/living/carbon/human/whitelisted/eldar/verb/lungeat(turf/T in oview())
+/mob/living/carbon/human/whitelisted/eldar/verb/blinkto(turf/T in oview())
 	set category = "Eldar"
-	set name = "Lunge at.." // "Haunt"
-	set desc = "Allows you to move with blinding speed and hopefully knock some one down."
+	set name = "Blink to.." // "Haunt"
+	set desc = "Allows you to blink to somewhere nearby."
 	var/mob/living/carbon/human/whitelisted/eldar/U = usr
 	var/turf/mobloc = get_turf(U.loc)//To make sure that certain things work properly below.
 
@@ -119,7 +118,7 @@ Eldar
 		handle_teleport_grab(T, U)
 		U.loc = T
 		for(var/mob/O in oviewers(U))
-			O.show_message("[U.name] moves with INCREDIBLE speed!",1)
+			O.show_message("[U.name] suddenly shifts to somewhere else!",1)
 
 		spawn(0)
 			playsound(U.loc, 'sound/effects/rustle5.ogg', 25, 1)
@@ -128,7 +127,7 @@ Eldar
 		spawn(0)//Any living mobs in teleport area are gibbed.
 			T.stun_creatures(U)
 	else
-		U << "\red You cannot jump into solid walls or from solid matter"
+		U << "\red You cannot blink into solid walls or from solid matter"
 
 /mob/living/carbon/human/whitelisted/eldar/proc/handle_teleport_grab(turf/T, mob/living/U)
 	if(istype(U.get_active_hand(),/obj/item/weapon/grab))//Handles grabbed persons.
